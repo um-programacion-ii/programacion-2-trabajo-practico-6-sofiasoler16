@@ -25,4 +25,11 @@ public class Producto {
 
     @Column(nullable = false, precision = 10, scale = 2)
     private BigDecimal precio;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "categoria_id")
+    private Categoria categoria;
+
+    @OneToOne(mappedBy = "producto", cascade = CascadeType.ALL)
+    private Inventario inventario;
 }
