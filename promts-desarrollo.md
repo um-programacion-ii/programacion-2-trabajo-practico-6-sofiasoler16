@@ -70,3 +70,111 @@ Queria saber como hacer el pom.xml con la estructura correcta para evitar vulner
 
 ### Aprendizajes Obtenidos:
 - ES un problema de vulnerabilidad por la version de springboot
+
+# Prompts de [desarrollo]
+
+## Prompt 2: Error de paquetes
+### Prompt Utilizado:
+Por que cuando creo el BusinessServiceApplication.java me da este error? Spring Boot Application in default package
+
+### Respuesta Recibida:
+Ese error sale porque tu clase BusinessServiceApplication está en el paquete por defecto (no tiene package ... arriba) o está ubicada en una carpeta que no corresponde con su paquete. Spring Boot escanea componentes desde el paquete donde está la clase @SpringBootApplication hacia abajo; si está en el default package, el escaneo y el autoconfig pueden fallar.
+
+Cómo arreglarlo (2 minutos)
+
+Crea un paquete raíz para el servicio y mueve ahí todo el código del servicio:
+
+En business-service/src/main/java crea el paquete:
+
+com.um.businessservice
+
+
+Dentro, opcionalmente, subpaquetes:
+
+com.um.businessservice.client
+com.um.businessservice.controller
+com.um.businessservice.service
+com.um.businessservice.config
+
+
+Mueve las clases:
+
+BusinessServiceApplication.java → com/um/businessservice/
+
+DataServiceClient.java → com/um/businessservice/client/
+
+(Opcional pero recomendado) Repite el mismo criterio en data-service: por ejemplo com.um.dataservice como paquete raíz.
+
+Listo: desaparece el warning “Spring Boot Application in default package” y el escaneo de componentes funcionará bien (controllers, services, Feign, etc.).
+
+Cualquier otra clase del servicio → bajo com.um.businessservice...
+
+### Modificaciones Realizadas:
+- Cree un package dataService y businessService
+
+### Explicación del Prompt:
+Queria saber como arreglar el error de paquetes y por que me daba ese error
+
+### Aprendizajes Obtenidos:
+- Necesito poner los archivos dentro de un mismo package para poder usarlos como clases java
+
+## Prompt 3: Configuracion Feign
+### Prompt Utilizado:
+A que se refiere con hacer la configuracion del Feign? En donde la hago?
+
+### Respuesta Recibida:
+
+Muy buena duda 👌.
+Cuando en la consigna dicen “hacer la configuración del Feign”, se refieren a que vos tenés que definir cómo se va a comportar Feign en tu microservicio business-service:
+
+Timeouts (cuánto tiempo espera antes de cortar la conexión).
+
+Nivel de logging (qué tanta información de las requests/responses se loguea).
+
+Retries (si reintenta la llamada en caso de error).
+
+Manejo de errores (qué hacer con códigos 4xx/5xx → mapearlos a excepciones propias).
+
+📌 ¿Dónde se hace esa configuración?
+
+Tenés dos lugares posibles (y podés combinarlos):
+
+Archivo de configuración Java (@Configuration)
+Ahí ponés los beans globales de Feign.
+Ejemplo: business-service/src/main/java/com/um/businessservice/config/FeignClientConfig.java
+[Ejemplo de codigo]
+
+Esto es código Java → siempre va a aplicar.
+
+Archivo application.yml (propiedades externas)
+Ahí configurás los timeouts/logging a nivel de propiedades.
+Ejemplo: business-service/src/main/resources/application.yml
+[Ejemlo de codigo de application.yml]
+Esto es más flexible, porque podés cambiar valores sin tocar código (solo cambiando el yml).
+
+🚀 Entonces:
+
+El código Java (FeignClientConfig) te da el esqueleto fijo.
+
+El YAML (application.yml) te da los valores que podés tunear según ambiente (dev, prod…).
+
+La combinación de ambos es lo que significa en la consigna “hacer la configuración de Feign”.
+
+👉 Ahora ya tenés en tu proyecto:
+
+FeignClientConfig.java ✅
+
+FeignErrorDecoder.java ✅
+
+application.yml con spring.cloud.openfeign.client.config... ✅
+
+Con eso, ya cumpliste la parte de configuración del Feign 🎉.
+
+### Modificaciones Realizadas:
+- Cree el archivo FeignClientConfig para la configuracion
+
+### Explicación del Prompt:
+Queria saber a que se referia con la configuracion del Feign
+
+### Aprendizajes Obtenidos:
+- Que es configurar el feign

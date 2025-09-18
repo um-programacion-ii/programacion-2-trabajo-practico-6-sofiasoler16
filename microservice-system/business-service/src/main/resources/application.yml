@@ -1,0 +1,33 @@
+spring:
+  profiles:
+    active: dev
+
+---
+
+server:
+  port: 8080
+
+data:
+  service:
+    url: http://localhost:8081
+
+spring:
+  cloud:
+    openfeign:
+      client:
+        config:
+          default:
+            connectTimeout: 2000
+            readTimeout: 5000
+            loggerLevel: basic
+
+      compression:
+        request:
+          enabled: true
+        response:
+          enabled: true
+
+logging:
+  level:
+    businessService.client: DEBUG
+    feign: INFO
