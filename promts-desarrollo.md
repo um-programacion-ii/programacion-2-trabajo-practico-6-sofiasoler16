@@ -116,4 +116,65 @@ Cualquier otra clase del servicio → bajo com.um.businessservice...
 Queria saber como arreglar el error de paquetes y por que me daba ese error
 
 ### Aprendizajes Obtenidos:
-- Ne
+- Necesito poner los archivos dentro de un mismo package para poder usarlos como clases java
+
+## Prompt 3: Configuracion Feign
+### Prompt Utilizado:
+A que se refiere con hacer la configuracion del Feign? En donde la hago?
+
+### Respuesta Recibida:
+
+Muy buena duda 👌.
+Cuando en la consigna dicen “hacer la configuración del Feign”, se refieren a que vos tenés que definir cómo se va a comportar Feign en tu microservicio business-service:
+
+Timeouts (cuánto tiempo espera antes de cortar la conexión).
+
+Nivel de logging (qué tanta información de las requests/responses se loguea).
+
+Retries (si reintenta la llamada en caso de error).
+
+Manejo de errores (qué hacer con códigos 4xx/5xx → mapearlos a excepciones propias).
+
+📌 ¿Dónde se hace esa configuración?
+
+Tenés dos lugares posibles (y podés combinarlos):
+
+Archivo de configuración Java (@Configuration)
+Ahí ponés los beans globales de Feign.
+Ejemplo: business-service/src/main/java/com/um/businessservice/config/FeignClientConfig.java
+[Ejemplo de codigo]
+
+Esto es código Java → siempre va a aplicar.
+
+Archivo application.yml (propiedades externas)
+Ahí configurás los timeouts/logging a nivel de propiedades.
+Ejemplo: business-service/src/main/resources/application.yml
+[Ejemlo de codigo de application.yml]
+Esto es más flexible, porque podés cambiar valores sin tocar código (solo cambiando el yml).
+
+🚀 Entonces:
+
+El código Java (FeignClientConfig) te da el esqueleto fijo.
+
+El YAML (application.yml) te da los valores que podés tunear según ambiente (dev, prod…).
+
+La combinación de ambos es lo que significa en la consigna “hacer la configuración de Feign”.
+
+👉 Ahora ya tenés en tu proyecto:
+
+FeignClientConfig.java ✅
+
+FeignErrorDecoder.java ✅
+
+application.yml con spring.cloud.openfeign.client.config... ✅
+
+Con eso, ya cumpliste la parte de configuración del Feign 🎉.
+
+### Modificaciones Realizadas:
+- Cree el archivo FeignClientConfig para la configuracion
+
+### Explicación del Prompt:
+Queria saber a que se referia con la configuracion del Feign
+
+### Aprendizajes Obtenidos:
+- Que es configurar el feign
