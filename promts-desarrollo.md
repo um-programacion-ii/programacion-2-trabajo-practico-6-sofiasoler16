@@ -70,3 +70,50 @@ Queria saber como hacer el pom.xml con la estructura correcta para evitar vulner
 
 ### Aprendizajes Obtenidos:
 - ES un problema de vulnerabilidad por la version de springboot
+
+# Prompts de [desarrollo]
+
+## Prompt 2: Error de paquetes
+### Prompt Utilizado:
+Por que cuando creo el BusinessServiceApplication.java me da este error? Spring Boot Application in default package
+
+### Respuesta Recibida:
+Ese error sale porque tu clase BusinessServiceApplication está en el paquete por defecto (no tiene package ... arriba) o está ubicada en una carpeta que no corresponde con su paquete. Spring Boot escanea componentes desde el paquete donde está la clase @SpringBootApplication hacia abajo; si está en el default package, el escaneo y el autoconfig pueden fallar.
+
+Cómo arreglarlo (2 minutos)
+
+Crea un paquete raíz para el servicio y mueve ahí todo el código del servicio:
+
+En business-service/src/main/java crea el paquete:
+
+com.um.businessservice
+
+
+Dentro, opcionalmente, subpaquetes:
+
+com.um.businessservice.client
+com.um.businessservice.controller
+com.um.businessservice.service
+com.um.businessservice.config
+
+
+Mueve las clases:
+
+BusinessServiceApplication.java → com/um/businessservice/
+
+DataServiceClient.java → com/um/businessservice/client/
+
+(Opcional pero recomendado) Repite el mismo criterio en data-service: por ejemplo com.um.dataservice como paquete raíz.
+
+Listo: desaparece el warning “Spring Boot Application in default package” y el escaneo de componentes funcionará bien (controllers, services, Feign, etc.).
+
+Cualquier otra clase del servicio → bajo com.um.businessservice...
+
+### Modificaciones Realizadas:
+- Cree un package dataService y businessService
+
+### Explicación del Prompt:
+Queria saber como arreglar el error de paquetes y por que me daba ese error
+
+### Aprendizajes Obtenidos:
+- Ne
