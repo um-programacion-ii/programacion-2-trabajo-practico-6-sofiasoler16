@@ -14,7 +14,7 @@ public class ProductoRequest {
     private String nombre;
     private String descripcion;
     private BigDecimal precio;
-    private Long categoria;
+    private Long categoriaId;
     private Integer stock;
     private Integer stockMinimo;
 }

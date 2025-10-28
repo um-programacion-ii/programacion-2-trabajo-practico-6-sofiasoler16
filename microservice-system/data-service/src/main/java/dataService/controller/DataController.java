@@ -1,5 +1,8 @@
 package dataService.controller;
 
+import dataService.service.CategoriaService;
+import dataService.service.InventarioService;
+import dataService.service.ProductoService;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
