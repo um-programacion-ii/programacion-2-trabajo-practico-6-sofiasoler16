@@ -7,6 +7,7 @@ import businessService.dto.ProductoRequest;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.*;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 @FeignClient(name = "data-service", url = "${data.service.url}")
@@ -34,4 +35,7 @@ public interface DataServiceClient {
 
     @GetMapping("/data/inventario/stock-bajo")
     List<InventarioDTO> obtenerProductosConStockBajo();
+
+    @GetMapping("/data/reportes/valor-inventario")
+    BigDecimal valorInventario();
 }
