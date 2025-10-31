@@ -18,3 +18,4 @@ public class ProductoDTO {
     private Integer stock;
     private Boolean stockBajo;
 }
+
