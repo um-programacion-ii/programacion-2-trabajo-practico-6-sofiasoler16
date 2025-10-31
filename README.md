@@ -109,10 +109,65 @@ Desarrollar un sistema de microservicios utilizando Spring Boot y Feign, impleme
 > 💡 **Nota**: Esta estimación considera la complejidad de configurar microservicios, comunicación entre servicios con Feign, múltiples bases de datos y Docker. El tiempo incluye el aprendizaje de conceptos de microservicios y Spring Cloud.
 
 ## 👨‍🎓 Información del Alumno
-- **Nombre y Apellido**: [Nombre y Apellido del Alumno]
-- **Legajo**: [Número de Legajo]
+- **Nombre y Apellido**: Sofia Soler
+- **Legajo**: 62008
 
 > ⚠️ **IMPORTANTE**: Este trabajo práctico se realiza **INDIVIDUALMENTE**. Aunque se utilizan herramientas de colaboración como Pull Requests y Code Review, estas son para mantener buenas prácticas de desarrollo y un historial ordenado. Todo el desarrollo debe ser realizado por el mismo estudiante.
+---
+
+## 🧰 Requisitos del sistema
+
+Antes de ejecutar el proyecto, asegurate de tener instaladas las siguientes herramientas:
+
+| Herramienta | Versión recomendada | Comando para verificar |
+|--------------|--------------------|------------------------|
+| Java         | 21 o superior       | `java -version`        |
+| Maven        | 3.9.x o superior    | `mvn -v`               |
+| Docker       | 24.x o superior     | `docker --version`     |
+| Docker Compose | 2.x o superior    | `docker compose version` |
+| Git          | Última estable      | `git --version`        |
+
+---
+
+## ⚙️ Instrucciones de instalación
+
+1. **Cloná el repositorio:**
+   ```bash
+   git clone git@github.com:sofiasoler16/programacion-2-trabajo-practico-6-sofiasoler16.git
+   cd programacion-2-trabajo-practico-6-sofiasoler16/microservice-system
+
+2. **Compilá los microservicios con Maven:**
+    ```bash
+   mvn clean package -DskipTests
+   
+3. **Levantá las bases de datos con Docker Compose:**
+    ```bash
+   docker compose up -d
+
+4. **Verificá que los contenedores estén corriendo:**
+    ```bash   
+    docker ps
+   
+5. **Ejecutá los servicios:**
+    ```bash 
+   cd data-service
+   mvn spring-boot:run
+#### En otra terminal:
+    cd business-service
+    mvn spring-boot:run
+
+## DOcumentacion Endpoints
+| Método     | Endpoint                             | Descripción                          |
+| ---------- | ------------------------------------ | ------------------------------------ |
+| **GET**    | `/data/productos`                    | Obtiene todos los productos          |
+| **GET**    | `/data/productos/{id}`               | Obtiene un producto por ID           |
+| **POST**   | `/data/productos`                    | Crea un nuevo producto               |
+| **PUT**    | `/data/productos/{id}`               | Actualiza un producto existente      |
+| **DELETE** | `/data/productos/{id}`               | Elimina un producto                  |
+| **GET**    | `/data/productos/categoria/{nombre}` | Filtra productos por categoría       |
+| **GET**    | `/data/categorias`                   | Lista todas las categorías           |
+| **POST**   | `/data/categorias`                   | Crea una categoría                   |
+| **GET**    | `/data/inventario/stock-bajo`        | Muestra los productos con bajo stock |
 
 ## 📋 Requisitos Previos
 
