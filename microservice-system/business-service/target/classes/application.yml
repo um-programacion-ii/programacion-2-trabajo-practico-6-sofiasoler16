@@ -1,0 +1,121 @@
+
+spring:
+  profiles:
+    active: dev
+
+# ---------- DEV ----------
+---
+spring:
+  config:
+    activate:
+      on-profile: dev
+  cloud:
+    openfeign:
+      client:
+        config:
+          default:
+            connect-timeout: 2000
+            read-timeout: 5000
+            logger-level: basic
+      compression:
+        request:
+          enabled: true
+        response:
+          enabled: true
+
+server:
+  port: 8080
+
+data:
+  service:
+    url: http://localhost:8081
+
+logging:
+  level:
+    businessService.client: DEBUG
+    feign: INFO
+
+# ---------- MYSQL ----------
+---
+spring:
+  config:
+    activate:
+      on-profile: mysql
+  cloud:
+    openfeign:
+      client:
+        config:
+          default:
+            connect-timeout: 2000
+            read-timeout: 5000
+            logger-level: basic
+      compression:
+        request:
+          enabled: true
+        response:
+          enabled: true
+
+server:
+  port: 8080
+
+data:
+  service:
+    url: http://localhost:8081
+
+logging:
+  level:
+    businessService.client: DEBUG
+    feign: INFO
+
+# ---------- POSTGRES ----------
+---
+spring:
+  config:
+    activate:
+      on-profile: postgres
+  cloud:
+    openfeign:
+      client:
+        config:
+          default:
+            connect-timeout: 2000
+            read-timeout: 5000
+            logger-level: basic
+      compression:
+        request:
+          enabled: true
+        response:
+          enabled: true
+
+server:
+  port: 8080
+
+data:
+  service:
+    url: http://localhost:8081
+---
+spring:
+  cloud:
+    openfeign:
+      client:
+        config:
+          default:
+            connectTimeout: 2000
+            readTimeout: 5000
+            loggerLevel: basic
+
+      compression:
+        request:
+          enabled: true
+        response:
+          enabled: true
+
+logging:
+  level:
+    businessService.client: DEBUG
+    feign: INFO
+
+
+
+
+
