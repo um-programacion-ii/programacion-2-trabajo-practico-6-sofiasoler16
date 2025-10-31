@@ -21,7 +21,7 @@ import static org.mockito.Mockito.*;
 class InventarioDataServiceTest {
 
     @Mock
-    private InventarioRepository inventarioRepository; 
+    private InventarioRepository inventarioRepository;
     @Mock
     private ProductoRepository productoRepository;
 
