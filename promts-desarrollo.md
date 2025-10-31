@@ -71,7 +71,6 @@ Queria saber como hacer el pom.xml con la estructura correcta para evitar vulner
 ### Aprendizajes Obtenidos:
 - ES un problema de vulnerabilidad por la version de springboot
 
-# Prompts de [desarrollo]
 
 ## Prompt 2: Error de paquetes
 ### Prompt Utilizado:

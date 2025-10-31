@@ -63,4 +63,37 @@ public class ProductoBusinessService {
             throw new ValidacionNegocioException("El stock no puede ser negativo");
         }
     }
+
+    public ProductoDTO actualizarProducto(Long id, ProductoRequest request) {
+        validarProducto(request);
+        try {
+            return dataServiceClient.actualizarProducto(id, request);
+        } catch (FeignException.NotFound e) {
+            throw new ProductoNoEncontradoException("Producto no encontrado con ID: " + id);
+        } catch (FeignException e) {
+            log.error("Error al actualizar producto en el microservicio de datos", e);
+            throw new MicroserviceCommunicationException("Error de comunicación con el servicio de datos");
+        }
+    }
+
+    public void eliminarProducto(Long id) {
+        try {
+            dataServiceClient.eliminarProducto(id);
+        } catch (FeignException.NotFound e) {
+            throw new ProductoNoEncontradoException("Producto no encontrado con ID: " + id);
+        } catch (FeignException e) {
+            log.error("Error al eliminar producto en el microservicio de datos", e);
+            throw new MicroserviceCommunicationException("Error de comunicación con el servicio de datos");
+        }
+    }
+
+    public List<ProductoDTO> obtenerProductosPorCategoria(String nombreCategoria) {
+        try {
+            return dataServiceClient.obtenerProductosPorCategoria(nombreCategoria);
+        } catch (FeignException e) {
+            log.error("Error al obtener productos por categoría '{}' en data-service", nombreCategoria, e);
+            throw new MicroserviceCommunicationException("Error consultando productos por categoría");
+        }
+    }
+
 }
